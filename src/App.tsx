@@ -7,6 +7,7 @@ import {
 import CustomerLayout from './layouts/CustomerLayout'
 import CatalogPage from './pages/CatalogPage'
 import ProductDetailPage from './pages/ProductDetailPage'
+import CartPage from './pages/CartPage'
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
             path="products/:id"
             element={<ProductDetailPage />}
           />
+
+          <Route path="cart" element={<CartPage />} />
 
           <Route
             path="*"

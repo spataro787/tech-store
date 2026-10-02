@@ -16,3 +16,4 @@ export type CartAction =
       quantity: number
     }
   | { type: 'CLEAR_CART' }
+  | { type: 'LOAD_CART'; items: CartState }

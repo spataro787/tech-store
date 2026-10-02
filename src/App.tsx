@@ -8,6 +8,7 @@ import CustomerLayout from './layouts/CustomerLayout'
 import CatalogPage from './pages/CatalogPage'
 import ProductDetailPage from './pages/ProductDetailPage'
 import CartPage from './pages/CartPage'
+import LoginPage from './pages/LoginPage'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           />
 
           <Route path="cart" element={<CartPage />} />
+          <Route path="login" element={<LoginPage />} />
 
           <Route
             path="*"

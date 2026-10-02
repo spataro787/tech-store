@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { AuthContext } from '../context/AuthContext'
 import CartProvider from '../context/CartProvider'
 
 type TestProvidersProps = {
@@ -7,8 +8,10 @@ type TestProvidersProps = {
 
 export function TestProviders({ children }: TestProvidersProps) {
   return (
-    <CartProvider>
-      {children}
-    </CartProvider>
+    <AuthContext.Provider value={{ user: null, loading: false }}>
+      <CartProvider>
+        {children}
+      </CartProvider>
+    </AuthContext.Provider>
   )
 }

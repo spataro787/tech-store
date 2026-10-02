@@ -66,8 +66,12 @@ export function cartReducer(
       )
     }
 
-    case 'CLEAR_CART': {
+     case 'CLEAR_CART': {
       return []
+    }
+
+    case 'LOAD_CART': {
+      return action.items
     }
 
     default: {

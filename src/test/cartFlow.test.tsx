@@ -5,9 +5,22 @@ import {
   within,
 } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest'
 import App from '../App'
 import { TestProviders } from './TestProviders'
+
+vi.mock('../services/authService', () => ({
+  loginWithEmail: vi.fn(),
+  loginWithGoogle: vi.fn(),
+  logout: vi.fn(),
+}))
 
 beforeEach(() => {
   window.history.replaceState({}, '', '/')
@@ -52,13 +65,13 @@ describe('Flujo de compra: catálogo y carrito', () => {
     expect(window.location.pathname).toBe('/cart')
 
     expect(
-      screen.getByRole('heading', { name: 'Tu carrito' }),
+      screen.getByRole('heading', {
+        name: 'Tu carrito',
+      }),
     ).toBeTruthy()
 
     expect(
-      screen.getByText(
-        /^Subtotal:.*50[.]000/,
-      ),
+      screen.getByText(/^Subtotal:.*50[.]000/),
     ).toBeTruthy()
 
     await user.click(

@@ -17,7 +17,8 @@ function CustomerLayout() {
   } = useCart()
 
   const [loggingOut, setLoggingOut] = useState(false)
-  const [logoutError, setLogoutError] = useState<string | null>(null)
+  const [logoutError, setLogoutError] =
+    useState<string | null>(null)
 
   async function handleLogout() {
     if (loggingOut) {
@@ -40,45 +41,103 @@ function CustomerLayout() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <header className="border-b border-slate-200 bg-white px-4 py-6">
+    <div className="store-shell flex min-h-screen flex-col">
+      <header className="store-header px-4 py-5 sm:px-6">
         <div className="mx-auto max-w-6xl">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <Link
-                to="/"
-                className="text-3xl font-bold text-blue-600"
+          <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+            <Link
+              to="/"
+              aria-label="Tech Store, ir al catálogo"
+              className="inline-flex items-center gap-3 rounded-control"
+            >
+              <span
+                aria-hidden="true"
+                className="store-brand-mark"
               >
-                Tech Store
-              </Link>
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <rect
+                    x="6"
+                    y="6"
+                    width="12"
+                    height="12"
+                    rx="2"
+                  />
+                  <path d="M9 1v5m6-5v5M9 18v5m6-5v5M1 9h5m-5 6h5m12-6h5m-5 6h5" />
+                  <path d="m13 9-3 4h3l-2 3" />
+                </svg>
+              </span>
 
-              <p className="mt-2 text-slate-600">
-                Tu tienda de tecnología
-              </p>
-            </div>
+              <span>
+                <span className="store-brand-title block text-xl sm:text-2xl">
+                  TECH STORE
+                </span>
+
+                <span className="mt-1 block text-xs tracking-widest text-accent/80">
+                  TECNOLOGÍA DE OTRA GALAXIA
+                </span>
+              </span>
+            </Link>
 
             <nav
               aria-label="Navegación principal"
               className="flex flex-wrap items-center gap-3"
             >
+              <Link to="/" className="store-nav-link">
+                Catálogo
+              </Link>
+
               <Link
                 to="/cart"
-                className="rounded-lg bg-blue-50 px-4 py-3 font-medium text-blue-700 hover:bg-blue-100"
+                className="store-nav-link store-cart-link"
               >
-                Carrito: {totalItems} unidades
+                <svg
+                  aria-hidden="true"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M3 3h2l3 12h10l3-8H6" />
+                  <circle cx="9" cy="20" r="1" />
+                  <circle cx="18" cy="20" r="1" />
+                </svg>
+
+                <span>
+                  Carrito: {totalItems} unidades
+                </span>
               </Link>
 
               {loading ? (
                 <span
                   role="status"
-                  className="text-sm text-slate-600"
+                  className="text-sm text-muted"
                 >
                   Comprobando sesión…
                 </span>
               ) : user ? (
                 <>
-                  <span className="break-all text-sm text-slate-600">
-                    {user.email ?? 'Usuario conectado'}
+                  <span className="flex max-w-full items-center gap-2 text-sm text-muted">
+                    <span
+                      aria-hidden="true"
+                      className="store-light-dot"
+                    />
+
+                    <span className="min-w-0 break-all">
+                      {user.email ?? 'Usuario conectado'}
+                    </span>
                   </span>
 
                   <Button
@@ -94,7 +153,7 @@ function CustomerLayout() {
               ) : (
                 <Link
                   to="/login"
-                  className="rounded-lg px-4 py-3 font-medium text-blue-600 hover:bg-blue-50"
+                  className="store-nav-link"
                 >
                   Iniciar sesión
                 </Link>
@@ -102,50 +161,52 @@ function CustomerLayout() {
             </nav>
           </div>
 
-          {loadingCart && (
-            <p
-              role="status"
-              className="mt-4 text-sm text-slate-600"
-            >
-              Recuperando carrito…
-            </p>
-          )}
+          <div className="space-y-3">
+            {loadingCart && (
+              <p role="status" className="store-status mt-4">
+                Recuperando carrito…
+              </p>
+            )}
 
-          {savingCart && (
-            <p
-              role="status"
-              className="mt-4 text-sm text-slate-600"
-            >
-              Guardando carrito…
-            </p>
-          )}
+            {savingCart && (
+              <p role="status" className="store-status mt-4">
+                Guardando carrito…
+              </p>
+            )}
 
-          {cartError && (
-            <p
-              role="alert"
-              className="mt-4 text-sm text-red-700"
-            >
-              {cartError}
-            </p>
-          )}
+            {cartError && (
+              <p role="alert" className="store-error mt-4">
+                {cartError}
+              </p>
+            )}
 
-          {logoutError && (
-            <p
-              role="alert"
-              className="mt-4 text-sm text-red-700"
-            >
-              {logoutError}
-            </p>
-          )}
+            {logoutError && (
+              <p role="alert" className="store-error mt-4">
+                {logoutError}
+              </p>
+            )}
+          </div>
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8">
+      <main className="store-content mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-6 sm:py-12">
         <Outlet />
       </main>
 
-      <footer className="px-4 py-4 text-center text-sm text-slate-500">
-        <p>Proyecto educativo · React + TypeScript</p>
+      <footer className="store-footer px-4 py-6 sm:px-6">
+        <div className="mx-auto flex max-w-6xl flex-col gap-3 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
+          <p className="text-xs font-semibold tracking-widest text-accent">
+            TECH STORE
+          </p>
+
+          <p className="text-xs text-subtle">
+            Proyecto educativo · React + TypeScript
+          </p>
+
+          <p className="text-xs text-secondary">
+            Explorá tu próxima actualización
+          </p>
+        </div>
       </footer>
     </div>
   )

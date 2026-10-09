@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { GetObjectCommand } from '@aws-sdk/client-s3'
-import { getS3Bucket, getS3Client } from '../server/s3'
+import { getS3Bucket, getS3Client } from '../server/s3.js'
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024
 

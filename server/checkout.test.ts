@@ -1,13 +1,13 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { createFakeAdminDb } from './fakeAdminDb'
-import { checkout } from './checkout'
-import type { CheckoutInput } from './checkout'
+import { createFakeAdminDb } from './fakeAdminDb.js'
+import { checkout } from './checkout.js'
+import type { CheckoutInput } from './checkout.js'
 
 const { getAdminDb } = vi.hoisted(() => ({
   getAdminDb: vi.fn(),
 }))
 
-vi.mock('./firebaseAdmin', () => ({ getAdminDb }))
+vi.mock('./firebaseAdmin.js', () => ({ getAdminDb }))
 vi.mock('firebase-admin/firestore', () => ({
   FieldValue: {
     serverTimestamp: () => 'server-timestamp',

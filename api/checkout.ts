@@ -2,12 +2,12 @@ import type {
   VercelRequest,
   VercelResponse,
 } from '@vercel/node'
-import { getAdminAuth } from '../server/firebaseAdmin'
+import { getAdminAuth } from '../server/firebaseAdmin.js'
 import {
   checkout,
   CheckoutError,
-} from '../server/checkout'
-import type { CheckoutInput } from '../server/checkout'
+} from '../server/checkout.js'
+import type { CheckoutInput } from '../server/checkout.js'
 
 function parseBody(value: unknown): CheckoutInput {
   let body: unknown = value

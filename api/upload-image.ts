@@ -1,8 +1,8 @@
 import { randomUUID } from 'node:crypto'
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { createPresignedPost } from '@aws-sdk/s3-presigned-post'
-import { getAdminAuth, getAdminDb } from '../server/firebaseAdmin'
-import { getS3Bucket, getS3Client } from '../server/s3'
+import { getAdminAuth, getAdminDb } from '../server/firebaseAdmin.js'
+import { getS3Bucket, getS3Client } from '../server/s3.js'
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024
 

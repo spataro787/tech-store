@@ -1,7 +1,7 @@
 import { FieldValue } from 'firebase-admin/firestore'
-import { getAdminDb } from './firebaseAdmin'
-import { validateProduct } from '../src/utils/productValidation'
-import type { OrderStatus } from '../src/types/order'
+import { getAdminDb } from './firebaseAdmin.js'
+import { validateProduct } from '../src/utils/productValidation.js'
+import type { OrderStatus } from '../src/types/order.js'
 
 export class OrderStatusError extends Error {
   public readonly status: number

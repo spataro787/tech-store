@@ -6,8 +6,8 @@ import {
   it,
   vi,
 } from 'vitest'
-import uploadImageHandler from './upload-image'
-import productImageHandler from './product-image'
+import uploadImageHandler from '../api/upload-image.js'
+import productImageHandler from '../api/product-image.js'
 
 const mocks = vi.hoisted(() => ({
   verifyIdToken: vi.fn(),
@@ -17,12 +17,12 @@ const mocks = vi.hoisted(() => ({
   createPresignedPost: vi.fn(),
 }))
 
-vi.mock('../server/firebaseAdmin', () => ({
+vi.mock('../server/firebaseAdmin.js', () => ({
   getAdminAuth: () => ({ verifyIdToken: mocks.verifyIdToken }),
   getAdminDb: mocks.getAdminDb,
 }))
 
-vi.mock('../server/s3', () => ({
+vi.mock('../server/s3.js', () => ({
   getS3Client: mocks.getS3Client,
   getS3Bucket: mocks.getS3Bucket,
 }))

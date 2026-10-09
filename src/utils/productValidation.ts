@@ -1,4 +1,4 @@
-import type { ProductInput } from '../types/product'
+import type { ProductInput } from '../types/product.js'
 
 function readText(
   value: unknown,

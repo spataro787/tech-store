@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto'
 import { FieldValue } from 'firebase-admin/firestore'
-import { getAdminDb } from './firebaseAdmin'
-import { validateProduct } from '../src/utils/productValidation'
+import { getAdminDb } from './firebaseAdmin.js'
+import { validateProduct } from '../src/utils/productValidation.js'
 
 type CheckoutItem = {
   productId: string
@@ -118,7 +118,6 @@ export async function checkout(
   return db.runTransaction(async (transaction) => {
     const existingOrder = await transaction.get(orderReference)
 
-    // Un reintento devuelve la misma orden.
     if (existingOrder.exists) {
       const savedOrder = existingOrder.data()
 
@@ -161,7 +160,6 @@ export async function checkout(
       db.collection('products').doc(item.productId),
     )
 
-    // Todas las lecturas se realizan antes de las escrituras.
     const productSnapshots = await transaction.getAll(
       ...productReferences,
     )

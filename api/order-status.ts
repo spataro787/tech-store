@@ -2,11 +2,11 @@ import type {
   VercelRequest,
   VercelResponse,
 } from '@vercel/node'
-import { getAdminAuth } from '../server/firebaseAdmin'
+import { getAdminAuth } from '../server/firebaseAdmin.js'
 import {
   changeOrderStatus,
   OrderStatusError,
-} from '../server/orderStatus'
+} from '../server/orderStatus.js'
 
 function parseBody(value: unknown) {
   let body: unknown = value

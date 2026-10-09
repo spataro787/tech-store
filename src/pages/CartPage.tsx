@@ -248,6 +248,13 @@ function CartPage() {
 
             <div className="mt-6 flex flex-col gap-3">
               <Link
+                to="/checkout"
+                className="store-button store-button-primary w-full"
+              >
+                Continuar con la compra
+              </Link>
+
+              <Link
                 to="/"
                 className="store-nav-link store-cart-link w-full"
               >

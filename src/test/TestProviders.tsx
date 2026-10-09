@@ -6,9 +6,19 @@ type TestProvidersProps = {
   children: ReactNode
 }
 
-export function TestProviders({ children }: TestProvidersProps) {
+export function TestProviders({
+  children,
+}: TestProvidersProps) {
   return (
-    <AuthContext.Provider value={{ user: null, loading: false }}>
+    <AuthContext.Provider
+      value={{
+        user: null,
+        loading: false,
+        role: null,
+        roleLoading: false,
+        roleError: null,
+      }}
+    >
       <CartProvider>
         {children}
       </CartProvider>

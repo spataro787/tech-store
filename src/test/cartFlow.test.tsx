@@ -15,15 +15,49 @@ import {
 } from 'vitest'
 import App from '../App'
 import { TestProviders } from './TestProviders'
+import { getProducts } from '../services/productService'
+import type { Product } from '../types/product'
+
+vi.mock('../services/firebase', () => ({
+  auth: { currentUser: null },
+  db: {},
+}))
 
 vi.mock('../services/authService', () => ({
   loginWithEmail: vi.fn(),
   loginWithGoogle: vi.fn(),
+  registerWithEmail: vi.fn(),
+  completeRegistrationProfile: vi.fn(),
+  watchRegistrationProfile: vi.fn(() => vi.fn()),
+  isValidBirthDate: vi.fn(() => true),
   logout: vi.fn(),
 }))
 
+vi.mock('../services/productService', () => ({
+  getProducts: vi.fn(),
+  getProductById: vi.fn(),
+  createProduct: vi.fn(),
+  updateProduct: vi.fn(),
+  deleteProduct: vi.fn(),
+}))
+
+const testProducts: Product[] = [
+  {
+    id: 'mouse-01',
+    name: 'Mouse inalámbrico',
+    description: 'Mouse compacto para uso diario.',
+    price: 25000,
+    category: 'Periféricos',
+    stock: 15,
+    imageUrl: '',
+  },
+]
+
 beforeEach(() => {
+  vi.clearAllMocks()
   window.history.replaceState({}, '', '/')
+
+  vi.mocked(getProducts).mockResolvedValue(testProducts)
 })
 
 afterEach(() => {
@@ -39,7 +73,8 @@ describe('Flujo de compra: catálogo y carrito', () => {
       wrapper: TestProviders,
     })
 
-    const productTitle = screen.getByRole('heading', {
+    // El catálogo ahora carga los productos de forma asincrónica.
+    const productTitle = await screen.findByRole('heading', {
       name: 'Mouse inalámbrico',
     })
 
@@ -65,13 +100,11 @@ describe('Flujo de compra: catálogo y carrito', () => {
     expect(window.location.pathname).toBe('/cart')
 
     expect(
-      screen.getByRole('heading', {
-        name: 'Tu carrito',
-      }),
+      await screen.findByRole('heading', { name: 'Tu carrito' }),
     ).toBeTruthy()
 
     expect(
-      screen.getByText(/^Subtotal:.*50[.]000/),
+      await screen.findByText(/^Subtotal:.*50[.]000/),
     ).toBeTruthy()
 
     await user.click(

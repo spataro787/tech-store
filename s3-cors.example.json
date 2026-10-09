@@ -1,0 +1,12 @@
+[
+  {
+    "AllowedHeaders": ["*"],
+    "AllowedMethods": ["POST"],
+    "AllowedOrigins": [
+      "http://localhost:5173",
+      "https://REEMPLAZAR-POR-DOMINIO-PRODUCCION"
+    ],
+    "ExposeHeaders": [],
+    "MaxAgeSeconds": 3600
+  }
+]

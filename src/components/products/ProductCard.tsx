@@ -3,6 +3,7 @@ import type { Product } from '../../types/product'
 import { useCart } from '../../hooks/useCart'
 import Button from '../ui/Button'
 import Panel from '../ui/Panel'
+import ProductImage from './ProductImage'
 
 type ProductCardProps = {
   product: Product
@@ -52,7 +53,7 @@ function ProductCard({ product }: ProductCardProps) {
           </span>
 
           {product.imageUrl ? (
-            <img
+            <ProductImage
               src={product.imageUrl}
               alt={product.name}
               loading="lazy"

@@ -120,6 +120,12 @@ function CustomerLayout() {
                 </span>
               </Link>
 
+              {user && (
+                <Link to="/orders" className="store-nav-link">
+                  Mis órdenes
+                </Link>
+              )}
+
               {loading ? (
                 <span
                   role="status"

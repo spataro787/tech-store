@@ -7,3 +7,5 @@ export type Product = {
   stock: number
   imageUrl: string
 }
+
+export type ProductInput = Omit<Product, 'id'>

@@ -98,6 +98,50 @@ describe('imageService', () => {
     expect(fetchMock).not.toHaveBeenCalled()
   })
 
+  it('muestra un error claro si el servidor devuelve HTML con un error 500', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue(
+        new Response('<html>Internal Server Error</html>', {
+          status: 500,
+          headers: { 'Content-Type': 'text/html' },
+        }),
+      ),
+    )
+
+    await expect(
+      uploadProductImage(
+        new File(['image'], 'product.png', {
+          type: 'image/png',
+        }),
+      ),
+    ).rejects.toThrow(
+      'No pudimos autorizar la subida. El servidor devolvió una respuesta inválida (HTTP 500).',
+    )
+  })
+
+  it('muestra un error claro si el servidor devuelve texto plano con un error 500', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue(
+        new Response('Internal Server Error', {
+          status: 500,
+          headers: { 'Content-Type': 'text/plain' },
+        }),
+      ),
+    )
+
+    await expect(
+      uploadProductImage(
+        new File(['image'], 'product.png', {
+          type: 'image/png',
+        }),
+      ),
+    ).rejects.toThrow(
+      'No pudimos autorizar la subida. El servidor devolvió una respuesta inválida (HTTP 500).',
+    )
+  })
+
   it('traduce URL antiguas de S3 a la ruta proxy y conserva URLs externas', () => {
     expect(
       getProductImageSource(

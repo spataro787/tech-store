@@ -111,7 +111,19 @@ export async function uploadProductImage(
     }),
   })
 
-  const body: unknown = await authorizationResponse.json()
+  let body: unknown
+
+  try {
+    body = await authorizationResponse.json()
+  } catch {
+    if (!authorizationResponse.ok) {
+      throw new Error(
+        `No pudimos autorizar la subida. El servidor devolvió una respuesta inválida (HTTP ${authorizationResponse.status}).`,
+      )
+    }
+
+    throw new Error('La autorización de subida es inválida.')
+  }
 
   if (!authorizationResponse.ok) {
     throw new Error(getResponseError(body))

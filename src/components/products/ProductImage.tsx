@@ -33,17 +33,24 @@ function ProductImage({
     )
   }
 
-  return (
-    <img
-      src={imageSource}
-      alt={alt}
-      loading={loading}
-      width={width}
-      height={height}
-      className={className}
-      onError={() => setFailedSource(imageSource)}
-    />
-  )
+ return (
+  <img
+    src={imageSource}
+    alt={alt}
+    loading={loading}
+    width={width}
+    height={height}
+    className={className}
+    style={{
+      width: '100%',
+      height: '100%',
+      objectFit: 'contain',
+      objectPosition: 'center',
+      display: 'block',
+    }}
+    onError={() => setFailedSource(imageSource)}
+  />
+)
 }
 
 export default ProductImage
